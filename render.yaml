@@ -1,0 +1,20 @@
+services:
+  - name: fooddelivery-api
+    type: web
+    env: docker
+    plan: free
+    healthCheckPath: /api/v1/restaurants?limit=1
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: PORT
+        value: 8000
+      - key: DATABASE_URL
+        sync: false
+      - key: RATE_LIMIT_ENABLED
+        value: "true"
+      - key: RATE_LIMIT_LIMIT
+        value: "100"
+      - key: RATE_LIMIT_BURST
+        value: "150"
+      - key: CORS_ORIGINS
+        sync: false

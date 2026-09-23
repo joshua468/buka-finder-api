@@ -1,0 +1,95 @@
+.hd {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  height: var(--header-h);
+  background: rgba(14, 15, 17, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.hd__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.hd__mark { width: 30px; height: 30px; flex: none; }
+
+.hd__right { display: flex; align-items: center; }
+
+.city { position: relative; }
+
+.city__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 14px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--panel);
+  transition: border-color 0.15s, background 0.15s;
+}
+.city__btn:hover { border-color: var(--accent); }
+
+.city__pin { width: 17px; height: 17px; flex: none; }
+
+.city__label { color: var(--text-faint); font-size: 13px; }
+.city__value { font-weight: 600; font-size: 14px; }
+
+.city__chev { width: 14px; height: 14px; color: var(--text-dim); transition: transform 0.15s; }
+.city.is-open .city__chev { transform: rotate(180deg); }
+
+.city__scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+}
+
+.city__menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  z-index: 60;
+  min-width: 230px;
+  margin: 0;
+  padding: 8px;
+  list-style: none;
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-m);
+  box-shadow: var(--shadow);
+  animation: grow 0.14s ease-out;
+}
+
+.city__menu li button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  padding: 9px 12px;
+  border-radius: var(--radius-s);
+  font-size: 14px;
+  text-align: left;
+  transition: background 0.12s;
+}
+.city__menu li button:hover { background: var(--panel-3); }
+.city__menu li button.is-selected { color: var(--accent-hi); font-weight: 600; }
+
+.city__check { width: 15px; height: 15px; flex: none; }
+
+@keyframes grow {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
