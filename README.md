@@ -491,7 +491,7 @@ customer's city even though the restaurant is in Abuja:
 {
   "success": true,
   "data": {
-    "id": "685663ee-4bd8-4eec-9ccb-9f5b3da809cd",
+    "id": "cd81b380-595b-4fb8-9388-61a64c83e09d",
     "customer_id": "db6e1f0f-a90a-4e59-b546-590c41a6f998",
     "restaurant_id": "809990a9-dfb9-4e72-86f9-7f19df8b503f",
     "status": "pending",
@@ -499,14 +499,14 @@ customer's city even though the restaurant is in Abuja:
     "delivery_address": "12 Marina Road, Lagos",
     "delivery_city": "Benin City",
     "delivered_at": null,
-    "created_at": "2026-09-24T23:39:59.535088Z",
-    "updated_at": "2026-09-24T23:39:59.535088Z",
+    "created_at": "2026-09-25T02:32:03.811461Z",
+    "updated_at": "2026-09-25T02:32:03.811461Z",
     "items": [
-      { "id": "24663dc8-bbad-4e60-9f8a-a0ff102f30f6", "order_id": "685663ee-4bd8-4eec-9ccb-9f5b3da809cd", "menu_item_id": "aa08f7cb-7e4e-42b9-a206-9f885d6f5aa4", "quantity": 2, "unit_price": "375000", "subtotal": "750000", "created_at": "2026-09-24T23:39:59.535088Z" },
-      { "id": "56efabbe-3b12-414a-ba12-19dc0c418af8", "order_id": "685663ee-4bd8-4eec-9ccb-9f5b3da809cd", "menu_item_id": "3e7daca7-e00f-408a-b5a7-dd8b91f46f30", "quantity": 1, "unit_price": "395000", "subtotal": "395000", "created_at": "2026-09-24T23:39:59.535088Z" }
+      { "id": "1aa402e1-6b5a-46b2-aa46-6cf23ba61e0c", "order_id": "cd81b380-595b-4fb8-9388-61a64c83e09d", "menu_item_id": "aa08f7cb-7e4e-42b9-a206-9f885d6f5aa4", "quantity": 2, "unit_price": "375000", "subtotal": "750000", "created_at": "2026-09-25T02:32:03.811461Z" },
+      { "id": "636fc9a9-1ce7-4c78-bf21-a078d1e64c26", "order_id": "cd81b380-595b-4fb8-9388-61a64c83e09d", "menu_item_id": "3e7daca7-e00f-408a-b5a7-dd8b91f46f30", "quantity": 1, "unit_price": "395000", "subtotal": "395000", "created_at": "2026-09-25T02:32:03.811461Z" }
     ]
   },
-  "meta": { "timestamp": "2026-09-24T23:39:59Z" }
+  "meta": { "timestamp": "2026-09-25T02:32:03Z" }
 }
 ```
 
@@ -523,7 +523,7 @@ delivered`; cancellable from any state except `delivered`) — an illegal transi
 `409 CONFLICT`. Not found → `404`.
 
 ```bash
-curl -X PATCH "https://api-production-a74d.up.railway.app/api/v1/orders/685663ee-4bd8-4eec-9ccb-9f5b3da809cd" \
+curl -X PATCH "https://api-production-a74d.up.railway.app/api/v1/orders/cd81b380-595b-4fb8-9388-61a64c83e09d" \
   -H "Content-Type: application/json" \
   -d '{ "status": "confirmed" }'
 ```
@@ -535,7 +535,7 @@ Response (200): `data` is the updated order with `status: "confirmed"` and a ref
 {
   "success": true,
   "data": {
-    "id": "685663ee-4bd8-4eec-9ccb-9f5b3da809cd",
+    "id": "cd81b380-595b-4fb8-9388-61a64c83e09d",
     "customer_id": "db6e1f0f-a90a-4e59-b546-590c41a6f998",
     "restaurant_id": "809990a9-dfb9-4e72-86f9-7f19df8b503f",
     "status": "confirmed",
@@ -543,14 +543,14 @@ Response (200): `data` is the updated order with `status: "confirmed"` and a ref
     "delivery_address": "12 Marina Road, Lagos",
     "delivery_city": "Benin City",
     "delivered_at": null,
-    "created_at": "2026-09-24T23:39:59.535088Z",
-    "updated_at": "2026-09-24T23:40:05.904358Z",
+    "created_at": "2026-09-25T02:32:03.811461Z",
+    "updated_at": "2026-09-25T02:32:10.123456Z",
     "items": [
-      { "id": "24663dc8-bbad-4e60-9f8a-a0ff102f30f6", "order_id": "685663ee-4bd8-4eec-9ccb-9f5b3da809cd", "menu_item_id": "aa08f7cb-7e4e-42b9-a206-9f885d6f5aa4", "quantity": 2, "unit_price": "375000", "subtotal": "750000", "created_at": "2026-09-24T23:39:59.535088Z" },
-      { "id": "56efabbe-3b12-414a-ba12-19dc0c418af8", "order_id": "685663ee-4bd8-4eec-9ccb-9f5b3da809cd", "menu_item_id": "3e7daca7-e00f-408a-b5a7-dd8b91f46f30", "quantity": 1, "unit_price": "395000", "subtotal": "395000", "created_at": "2026-09-24T23:39:59.535088Z" }
+      { "id": "1aa402e1-6b5a-46b2-aa46-6cf23ba61e0c", "order_id": "cd81b380-595b-4fb8-9388-61a64c83e09d", "menu_item_id": "aa08f7cb-7e4e-42b9-a206-9f885d6f5aa4", "quantity": 2, "unit_price": "375000", "subtotal": "750000", "created_at": "2026-09-25T02:32:03.811461Z" },
+      { "id": "636fc9a9-1ce7-4c78-bf21-a078d1e64c26", "order_id": "cd81b380-595b-4fb8-9388-61a64c83e09d", "menu_item_id": "3e7daca7-e00f-408a-b5a7-dd8b91f46f30", "quantity": 1, "unit_price": "395000", "subtotal": "395000", "created_at": "2026-09-25T02:32:03.811461Z" }
     ]
   },
-  "meta": { "timestamp": "2026-09-24T23:40:05Z" }
+  "meta": { "timestamp": "2026-09-25T02:32:10Z" }
 }
 ```
 
@@ -570,7 +570,7 @@ Order items are deleted by cascade. Not found → `404`. The response echoes the
 order's id (not `true`).
 
 ```bash
-curl -X DELETE "https://api-production-a74d.up.railway.app/api/v1/orders/685663ee-4bd8-4eec-9ccb-9f5b3da809cd"
+curl -X DELETE "https://api-production-a74d.up.railway.app/api/v1/orders/cd81b380-595b-4fb8-9388-61a64c83e09d"
 ```
 
 Response (200):
@@ -578,8 +578,8 @@ Response (200):
 ```json
 {
   "success": true,
-  "data": { "deleted": "685663ee-4bd8-4eec-9ccb-9f5b3da809cd" },
-  "meta": { "timestamp": "2026-09-24T23:40:06Z" }
+  "data": { "deleted": "cd81b380-595b-4fb8-9388-61a64c83e09d" },
+  "meta": { "timestamp": "2026-09-25T02:32:12Z" }
 }
 ```
 
