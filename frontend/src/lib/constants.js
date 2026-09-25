@@ -91,7 +91,13 @@ export const DISH_IMAGES = {
     '/images/dishes/groundnut-soup-4.jpg',
   ],
   'Vegetable Soup': '/images/dishes/vegetable-soup.jpg',
-  'Okro Soup': '/images/dishes/okro-soup.jpg',
+  'Okro Soup': [
+    '/images/dishes/okro-soup.jpg',
+    '/images/dishes/okra-1.webp',
+    '/images/dishes/okra-2.webp',
+    '/images/dishes/okra-3.webp',
+    '/images/dishes/okra-4.webp',
+  ],
   'Boli (Roast Plantain)': '/images/dishes/boli-plantain.jpg',
 }
 
@@ -241,6 +247,13 @@ export const RESTAURANT_BANNERS = {
     '/isiewuu.jpg',
     '/isiewu2.jpg',
     '/isiewu3.jpg',
+  ],
+  'Okra Soup Joint': [
+    '/images/dishes/okro-soup.jpg',
+    '/images/dishes/okra-1.webp',
+    '/images/dishes/okra-2.webp',
+    '/images/dishes/okra-3.webp',
+    '/images/dishes/okra-4.webp',
   ],
 }
 
