@@ -31,7 +31,7 @@ type Restaurant struct {
 	CuisineType string          `gorm:"type:varchar(100)" json:"cuisine_type,omitempty"`
 	Address     string          `gorm:"type:varchar(500);not null" json:"address"`
 	City        string          `gorm:"type:varchar(100);not null;index" json:"city"`
-	Rating      decimal.Decimal `gorm:"type:numeric(2,1);default:0.0" json:"rating"`
+	Rating      decimal.Decimal `gorm:"type:numeric(4,3);default:0.0" json:"rating"`
 	Status      string          `gorm:"type:varchar(20);default:active;index" json:"status"`
 	Phone       string          `gorm:"type:varchar(20);uniqueIndex" json:"phone,omitempty"`
 	Email       string          `gorm:"type:varchar(255);uniqueIndex" json:"email,omitempty"`

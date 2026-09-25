@@ -45,6 +45,9 @@ func ListRestaurants(c *gin.Context) {
 	fb := filters.New().Add(c, "city").Add(c, "cuisine").Add(c, "status").Add(c, "rating_min")
 	db = fb.Apply(db, restaurantFilters)
 	db = fb.ApplyRange(db, rangeFilters)
+	if q := strings.TrimSpace(c.Query("search")); q != "" {
+		db = db.Where("name ILIKE ?", "%"+q+"%")
+	}
 	db.Count(&total)
 
 	db = db.Distinct().Limit(q.Limit).Offset(q.Offset)

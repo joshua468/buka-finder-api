@@ -1,10 +1,11 @@
-import { cuisineGradient, initials, STATUS_LABEL, STATUS_TONE } from '../lib/constants.js'
+import { bannerImage, cuisineGradient, STATUS_LABEL, STATUS_TONE } from '../lib/constants.js'
 import './Card.css'
 
 export default function RestaurantCard({ restaurant, onOpen }) {
   const r = restaurant
   const tone = STATUS_TONE[r.status] || 'muted'
   const label = STATUS_LABEL[r.status] || r.status
+  const img = bannerImage(r.cuisine_type, r.name)
 
   return (
     <article className="card" aria-label={r.name}>
@@ -12,13 +13,19 @@ export default function RestaurantCard({ restaurant, onOpen }) {
         className="card__banner"
         style={{ background: cuisineGradient(r.cuisine_type) }}
       >
-        <div className="card__mono" aria-hidden="true">
-          {initials(r.name)}
-        </div>
+        {img && (
+          <img
+            className="card__banner-img"
+            src={img}
+            alt=""
+            loading="lazy"
+            onError={(e) => { e.currentTarget.style.display = 'none' }}
+          />
+        )}
         <div className="card__banner-top">
           <span className="card__rating">
             <Star className="card__star" />
-            {Number(r.rating ?? 0).toFixed(1)}
+            {Number(r.rating ?? 0).toFixed(2)}
           </span>
           <span className={`badge badge--${tone}`}>{label}</span>
         </div>

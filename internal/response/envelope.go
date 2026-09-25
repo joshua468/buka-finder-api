@@ -23,6 +23,12 @@ type Meta struct {
 	Timestamp string `json:"timestamp,omitempty"`
 }
 
+// ResourceMeta is the metadata on single-resource success responses: just the
+// audit timestamp. It deliberately does not include pagination fields.
+type ResourceMeta struct {
+	Timestamp string `json:"timestamp"`
+}
+
 // ErrorMeta is the metadata on error responses: just the log/audit fields.
 type ErrorMeta struct {
 	Timestamp string `json:"timestamp"`
@@ -58,7 +64,7 @@ func timestamp() string {
 
 // OK writes a single-resource success envelope.
 func OK(c *gin.Context, status int, data interface{}) {
-	c.JSON(status, Body{Success: true, Data: data, Meta: &Meta{Timestamp: timestamp()}})
+	c.JSON(status, Body{Success: true, Data: data, Meta: &ResourceMeta{Timestamp: timestamp()}})
 }
 
 // List writes the paginated success envelope.

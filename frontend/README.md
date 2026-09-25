@@ -1,16 +1,42 @@
-# React + Vite
+# Buka Finder — Consumer (React + Vite)
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+The customer-facing web app for the food delivery API. It consumes the live API
+(`/api/v1`) same-origin and proves pagination, filtering, sorting, ordering and live
+order tracking from outside the API itself.
 
-Currently, two official plugins are available:
+## What it does
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- restaurant list (20 per page) from `GET /restaurants`
+- city filter (header dropdown), cuisine chips, "open now" toggle
+- sort: newest / top rated / name A–Z
+- page controls with total counts and empty/error states
+- order tracking drawer with a live map + progress rail
+  (`pending → confirmed → preparing → ready → out_for_delivery → delivered`)
 
-## React Compiler
+## Money
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Prices are returned in **kobo** (₦3,750 → `"375000"`). The `naira()` helper in
+`src/lib/constants.js` divides by 100 for display only. Money is never rounded in flight.
 
-## Expanding the Oxlint configuration
+## Run (dev)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+```bash
+npm install
+npm run dev      # Vite dev server; proxies /api/v1 → http://localhost:8000
+```
+
+## Build
+
+```bash
+npm run build    # emits dist/ — served by the API binary at :8000 from the repo root
+```
+
+## Pointing at another API
+
+Copy `frontend/.env.example` to `frontend/.env` and set `VITE_API_URL`. Default is the
+same-origin `/api/v1`.
+
+## Production
+
+The API binary serves `dist/` itself (see `cmd/api/main.go`), so the deployed consumer
+lives at the API origin — e.g. `https://api-production-a74d.up.railway.app/`.

@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"os"
 	"path"
+	"time"
 
 	"github.com/buka/fooddelivery/internal/config"
 	"github.com/buka/fooddelivery/internal/database"
@@ -14,6 +15,12 @@ import (
 	"github.com/buka/fooddelivery/internal/response"
 	"github.com/gin-gonic/gin"
 )
+
+// init pins the process timezone to UTC before anything else runs, so JSON
+// timestamps always marshal as "Z" no matter what TZ the host is in.
+func init() {
+	time.Local = time.UTC
+}
 
 var frontendDist = resolveDist()
 

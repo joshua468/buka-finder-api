@@ -167,7 +167,7 @@ func CreateOrder(c *gin.Context) {
 		UpdatedAt:       now,
 	}
 	if order.DeliveryCity == "" {
-		order.DeliveryCity = restaurant.City
+		order.DeliveryCity = customer.City
 	}
 	for _, it := range items {
 		subtotal := it.Price.Mul(decimal.NewFromInt(int64(qty[it.ID])))

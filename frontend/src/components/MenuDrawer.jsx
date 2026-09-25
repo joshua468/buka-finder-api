@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { listMenu } from '../lib/api.js'
-import { cuisineGradient, initials, naira, STATUS_LABEL, STATUS_TONE } from '../lib/constants.js'
+import { bannerImage, cuisineGradient, dishImage, naira, STATUS_LABEL, STATUS_TONE } from '../lib/constants.js'
 import './Drawer.css'
 
-export default function MenuDrawer({ restaurant, onClose }) {
+export default function MenuDrawer({ restaurant, onClose, cart, onAdd }) {
   const [items, setItems] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -66,12 +66,20 @@ export default function MenuDrawer({ restaurant, onClose }) {
           className="drawer__head"
           style={{ background: cuisineGradient(restaurant.cuisine_type) }}
         >
+          {bannerImage(restaurant.cuisine_type, restaurant.name) && (
+            <img
+              className="drawer__banner-img"
+              src={bannerImage(restaurant.cuisine_type, restaurant.name)}
+              alt=""
+              aria-hidden="true"
+              onError={(e) => { e.currentTarget.style.display = 'none' }}
+            />
+          )}
           <button ref={closeRef} type="button" className="drawer__close" onClick={onClose} aria-label="Close menu">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
             </svg>
           </button>
-          <div className="drawer__mono" aria-hidden="true">{initials(restaurant.name)}</div>
           <div className="drawer__headrow">
             <span className={`badge badge--${tone}`}>{status}</span>
             {restaurant.rating != null && (
@@ -79,13 +87,14 @@ export default function MenuDrawer({ restaurant, onClose }) {
                 <svg viewBox="0 0 16 16" aria-hidden="true">
                   <path d="m8 1.6 1.9 3.9 4.3.6-3.1 3 .7 4.2-3.8-2-3.8 2 .7-4.2-3.1-3 4.3-.6L8 1.6Z" fill="currentColor" />
                 </svg>
-                {Number(restaurant.rating).toFixed(1)}
+                {Number(restaurant.rating).toFixed(2)}
               </span>
             )}
           </div>
           <h2 className="drawer__title">{restaurant.name}</h2>
           <p className="drawer__meta">
-            {restaurant.city}{restaurant.address ? ` · ${restaurant.address}` : ''}
+            {(restaurant.city)}
+            {(restaurant.address ? ` · ${restaurant.address}` : '')}
             {restaurant.cuisine_type ? ` · ${restaurant.cuisine_type}` : ''}
           </p>
         </header>
@@ -124,21 +133,49 @@ export default function MenuDrawer({ restaurant, onClose }) {
 
           {!loading && !error && (
             <ul className="drawer__list">
-              {shown(visible).map((item) => (
-                <li key={item.id} className={`dish ${item.available === false ? 'is-off' : ''}`}>
-                  <div className="dish__info">
-                    <div className="dish__head">
-                      <h3 className="dish__name">{item.name}</h3>
-                      {item.category && <span className="dish__cat">{item.category}</span>}
+              {shown(visible).map((item) => {
+                const img = dishImage(item)
+                const inCart = cart?.[item.id] || 0
+                return (
+                  <li key={item.id} className={`dish ${item.available === false ? 'is-off' : ''}`}>
+                    {img && (
+                      <div className="dish__media">
+                        <img
+                          src={img}
+                          alt={item.name}
+                          loading="lazy"
+                          onError={(e) => { e.currentTarget.style.display = 'none' }}
+                        />
+                      </div>
+                    )}
+                    <div className="dish__info">
+                      <div className="dish__head">
+                        <h3 className="dish__name">{item.name}</h3>
+                        {item.category && <span className="dish__cat">{item.category}</span>}
+                      </div>
+                      {item.description && <p className="dish__desc">{item.description}</p>}
+                      <p className="dish__price">{naira(item.price)}</p>
                     </div>
-                    {item.description && <p className="dish__desc">{item.description}</p>}
-                    <p className="dish__price">{naira.format(Number(item.price))}</p>
-                  </div>
-                  {item.available === false && (
-                    <span className="dish__off">Sold out</span>
-                  )}
-                </li>
-              ))}
+                    {item.available === false ? (
+                      <span className="dish__off">Sold out</span>
+                    ) : (
+                      <div className="dish__add">
+                        {inCart > 0 ? (
+                          <div className="qty" role="group" aria-label={`Quantity for ${item.name}`}>
+                            <button type="button" className="qty__btn" onClick={() => onAdd(item, -1)} aria-label="Decrease quantity">−</button>
+                            <span className="qty__n">{inCart}</span>
+                            <button type="button" className="qty__btn" onClick={() => onAdd(item, 1)} aria-label="Increase quantity">+</button>
+                          </div>
+                        ) : (
+                          <button type="button" className="dish__addbtn" onClick={() => onAdd(item, 1)}>
+                            Add
+                          </button>
+                        )}
+                      </div>
+                    )}
+                  </li>
+                )
+              })}
             </ul>
           )}
         </div>
